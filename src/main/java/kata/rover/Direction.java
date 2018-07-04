@@ -7,29 +7,29 @@ public enum Direction {
 
     NORTH {
         @Override
-        Coordinates moveForward(Coordinates coordinates) {
-            return Coordinates.of(coordinates.getX(), coordinates.getY() + 1);
+        Coordinates moveForward(World world, Coordinates coordinates) {
+            return Coordinates.of(coordinates.getX(), (coordinates.getY() + 1) % world.getHeight());
         }
     }, EAST {
         @Override
-        Coordinates moveForward(Coordinates coordinates) {
-            return Coordinates.of(coordinates.getX() + 1, coordinates.getY());
+        Coordinates moveForward(World world, Coordinates coordinates) {
+            return Coordinates.of((coordinates.getX() + 1) % world.getWidth(), coordinates.getY());
         }
     }, SOUTH {
         @Override
-        Coordinates moveForward(Coordinates coordinates) {
-            return Coordinates.of(coordinates.getX(), coordinates.getY() - 1);
+        Coordinates moveForward(World world, Coordinates coordinates) {
+            return Coordinates.of(coordinates.getX(), (coordinates.getY() + world.getHeight() - 1) % world.getHeight());
         }
     }, WEST {
         @Override
-        Coordinates moveForward(Coordinates coordinates) {
-            return Coordinates.of(coordinates.getX() - 1, coordinates.getY());
+        Coordinates moveForward(World world, Coordinates coordinates) {
+            return Coordinates.of((coordinates.getX() + world.getWidth() - 1) % world.getWidth(), coordinates.getY());
         }
     };
 
     private static final List<Direction> ORDERED_DIRECTION_TURNING_RIGHT = Arrays.asList(NORTH, EAST, SOUTH, WEST);
 
-    abstract Coordinates moveForward(Coordinates coordinates);
+    abstract Coordinates moveForward(World world, Coordinates coordinates);
 
     public Direction turnRight() {
         return ORDERED_DIRECTION_TURNING_RIGHT.get((ORDERED_DIRECTION_TURNING_RIGHT.indexOf(this) + 1) % 4);

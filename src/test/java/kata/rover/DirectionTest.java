@@ -8,26 +8,50 @@ public class DirectionTest {
 
     @Test
     public void should_move_forward_to_east() {
-        Coordinates coordinates = Direction.EAST.moveForward(Coordinates.of(5, 5));
+        Coordinates coordinates = Direction.EAST.moveForward(World.of(10, 10), Coordinates.of(5, 5));
         assertThat(coordinates).isEqualTo(Coordinates.of(6, 5));
     }
 
     @Test
     public void should_move_forward_to_west() {
-        Coordinates coordinates = Direction.WEST.moveForward(Coordinates.of(5, 5));
+        Coordinates coordinates = Direction.WEST.moveForward(World.of(10, 10), Coordinates.of(5, 5));
         assertThat(coordinates).isEqualTo(Coordinates.of(4, 5));
     }
 
     @Test
     public void should_move_forward_to_north() {
-        Coordinates coordinates = Direction.NORTH.moveForward(Coordinates.of(5, 5));
+        Coordinates coordinates = Direction.NORTH.moveForward(World.of(10, 10), Coordinates.of(5, 5));
         assertThat(coordinates).isEqualTo(Coordinates.of(5, 6));
     }
 
     @Test
     public void should_move_forward_to_south() {
-        Coordinates coordinates = Direction.SOUTH.moveForward(Coordinates.of(5, 5));
+        Coordinates coordinates = Direction.SOUTH.moveForward(World.of(10, 10), Coordinates.of(5, 5));
         assertThat(coordinates).isEqualTo(Coordinates.of(5, 4));
+    }
+
+    @Test
+    public void should_move_forward_to_east_reaching_edge() {
+        Coordinates coordinates = Direction.EAST.moveForward(World.of(3, 3), Coordinates.of(2, 1));
+        assertThat(coordinates).isEqualTo(Coordinates.of(0, 1));
+    }
+
+    @Test
+    public void should_move_forward_to_west_reaching_edge() {
+        Coordinates coordinates = Direction.WEST.moveForward(World.of(3, 3), Coordinates.of(0, 1));
+        assertThat(coordinates).isEqualTo(Coordinates.of(2, 1));
+    }
+
+    @Test
+    public void should_move_forward_to_north_reaching_edge() {
+        Coordinates coordinates = Direction.NORTH.moveForward(World.of(3, 3), Coordinates.of(2, 2));
+        assertThat(coordinates).isEqualTo(Coordinates.of(2, 0));
+    }
+
+    @Test
+    public void should_move_forward_to_south_reaching_edge() {
+        Coordinates coordinates = Direction.SOUTH.moveForward(World.of(3, 3), Coordinates.of(2, 0));
+        assertThat(coordinates).isEqualTo(Coordinates.of(2, 2));
     }
 
     @Test
