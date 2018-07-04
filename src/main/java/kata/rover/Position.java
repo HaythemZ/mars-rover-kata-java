@@ -16,6 +16,22 @@ public class Position {
         return new Position(Coordinates.of(x, y), direction);
     }
 
+    public static Position of(Coordinates coordinates, Direction direction) {
+        return new Position(coordinates, direction);
+    }
+
+    public Position turnLeft() {
+        return of(coordinates, direction.turnLeft());
+    }
+
+    public Position turnRight() {
+        return of(coordinates, direction.turnRight());
+    }
+
+    public Position moveForward(World world) {
+        return of(direction.moveForward(world, coordinates), direction);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
